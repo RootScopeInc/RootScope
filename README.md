@@ -1,46 +1,34 @@
-# RootScope
+# RootScope  
 
-**RootScope** is a Linux black box recorder for postmortem root cause analysis and real-time system forensics.
-
-It continuously captures system activity at the kernel level — including file system changes, device events, and process execution — and reconstructs a searchable, timestamped timeline. Even when logs are missing, rotated, or incomplete, RootScope helps you trace exactly what happened.
+**RootScope** is a Linux black box recorder — a source of truth for system activity. It runs entirely in userspace, leveraging kernel primitives like **audit netlink**, **udev**, and **fanotify** to capture file, process, and device events in real time. These raw signals are automatically correlated into a searchable, timestamped timeline that traces every event back to its origin.  
 
 ---
 
-## 🧠 Why RootScope?
+## 🧠 Why RootScope?  
 
-Logs can be tampered with, rotated, or incomplete. Field issues are impossible to reproduce.
+Failures rarely happen the way you expect. They can be silent, intermittent, and nearly impossible to reproduce — and when they strike, logs are often missing, rotated, or misleading. Traditional observability assumes you knew what to log ahead of time; RootScope exists for everything you didn’t anticipate.  
 
-RootScope exists to make postmortem debugging less guesswork — by recording the ground truth directly from the kernel.
+Unlike logging and instrumentation, RootScope:  
+- Provides a **ground-truth record** that doesn’t depend on prior instrumentation  
+- Captures **system-level activity** across processes, files, and devices  
+- Is **lightweight and self-contained**, storing data locally without external agents or cloud dependencies  
 
-Unlike traditional observability tools, RootScope:
-- Works even when logs are missing, incomplete, or wiped
-- Records system-level activity — bypassing the logging paradigm entirely
-- Is lightweight and self-contained, storing everything locally without external agents or cloud dependencies
 
-## 👤 Who Is RootScope For?
+## 👤 Who Is RootScope For?  
 
-RootScope is designed for **engineers working close to the system**, where traditional logs and observability tools fall short. It's ideal for:
+RootScope is designed for **engineers working close to the system**, where traditional logs and observability tools fall short. It’s built for situations where you need answers but your usual signals are missing or misleading.  
 
-- **Platform engineers & infra teams** tracing filesystem, mount, or device changes
-- **Security engineers & incident responders** who need visibility even when logs are wiped or tampered with
-- **Embedded Linux developers** debugging field-only failures and boot-time issues
-- **SREs & reliability engineers** running postmortems with missing or rotated logs
-- **Anyone investigating** system state changes with no clear trace of "what happened"
+- **Platform engineers & infra teams** debugging why `/mnt/data` suddenly unmounted or which process filled `/tmp` before a crash
+- **Security engineers & incident responders** investigating *who deleted `/etc/passwd`* or which process opened a sensitive device node  
+- **SREs & reliability engineers** reconstructing why a service failed after a newly deployed service raced on a shared file
+- **Compliance & Auditting** monitoring what happens to the entire `/etc` directory when something runs to catch misconfigurations, tampering, or policy drift
 
-RootScope is for you if:
+RootScope is for you if:  
 - The process is gone, the file is deleted, and the trail is cold
-- You only know *when* the failure occurred — not why
-- You encounter a system failure you didn’t anticipate, and audit rules or journald missed it
-- You need a reliable, greppable forensic trail long after the fact
+- You only know *when* something broke — not how or why  
+- You’ve hit a failure mode no one instrumented for, and audit rules or journald missed it  
+- You need a greppable forensic trail to rewind the system state after the fact
 
----
-
-## 🚀 Key Use Cases
-
-- Find the root cause of system failures after the fact
-- Reconstruct what changed on the system and who did it
-- Detect transient bugs and timing issues that logs missed
-- Investigate security-related events like unexpected file or device access
 
 ---
 
@@ -68,9 +56,28 @@ RootScope then **correlates these events across subsystems** to reconstruct a co
 
 ---
 
+## 🧪 Try RootScope via a RootScope Playground
+
+The RootScope Playground is a zero-setup environment designed to let you try RootScope instantly.
+
+It walks you through a fun, real-world scenario — the kind that traditional logging tools miss — and shows how RootScope helps uncover the full picture.
+
+No install, no configuration — just SSH in and start investigating.
+
+### 🔐 How to Access the Playground  
+
+Getting access is simple:  
+
+1. Send your **public SSH key** to [rootscopedev@gmail.com](mailto:rootscopedev@gmail.com)  
+2. We’ll add it to the Playground and send you the login details  
+
+That’s it — no setup, no install. You’ll land directly in the RootScope Playground environment and can start exploring right away.
+
+---
+
 ## ⚙️ Installation
 
-This repository contains the daemon package installer for RootScope.
+If you prefer a more hands on trial, this repository also contains the package installer for RootScope.
 
 ### 🧩 Supported Distros
 
@@ -104,36 +111,12 @@ to view all the available commands as well as their example usage
 
 ---
 
-## 🧪 Try RootScope via a RootScope Playground
+## 💬 Questions or Feedback?  
 
-The RootScope Playground is a zero-setup environment designed to let you try RootScope instantly.
+We’d love to hear from you.  
 
-It walks you through a fun, real-world scenario — the kind that traditional logging tools miss — and shows how RootScope helps uncover the full picture.
+If you have questions, feedback, or run into issues, you can:  
+- 📧 Email us at **rootscopedev@gmail.com** (we’ll reply as soon as possible)  
+- 🐛 Open an issue directly in this GitHub repo  
 
-No install, no configuration — just SSH in and start investigating.
-
-### 🔐 How to Access the Playground
-
-You can simply use the SSH key `rootscope_playground.pem` attached in this repository and run:
-
-```bash
-chmod 600 rootscope_playground.pem
-ssh -i rootscope_playground.pem ubuntu@44.199.189.108
-```
-
-You’ll land in the RootScope Playground environment immediately.
-
-> ⚠️ This private key is intentionally published for public access to the RootScope Playground.  
-> It only grants access to a single isolated VM with no persistent state.  
-> Do **not** reuse this key for anything else.
-
----
-
-## 💬 Questions or Feedback?
-
-We’d love to hear from you.
-
-If you have questions, feedback, or run into issues, feel free to reach out anytime:
-
-📧 **rootscopedev@gmail.com**  
-We’ll get back to you as soon as possible.
+Whichever is easier — we’ll be happy to help.  
