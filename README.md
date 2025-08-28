@@ -97,7 +97,7 @@ If you prefer a more hands on trial, you can pick the installer that matches you
 RootScope is designed to install with a single command and start working immediately — no configuration required.
 
 
-```bash
+```
 sudo apt install <pkg> --fix-missing --fix-broken
 ```
 
