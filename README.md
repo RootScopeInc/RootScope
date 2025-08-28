@@ -77,7 +77,7 @@ That’s it — no setup, no install. You’ll land directly in the RootScope Pl
 
 ## ⚙️ Installation
 
-If you prefer a more hands on trial, you can download the latest isntaller from the [Release page](https://github.com/RootScopeInc/RootScope/releases)
+If you prefer a more hands on trial, you can download the latest installer from the [Release page](https://github.com/RootScopeInc/RootScope/releases)
 
 ### 🧩 Supported Distros
 
