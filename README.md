@@ -77,17 +77,15 @@ That’s it — no setup, no install. You’ll land directly in the RootScope Pl
 
 ## ⚙️ Installation
 
-If you prefer a more hands on trial, you can pick the installer that matches your Ubuntu version:
+If you prefer a more hands on trial, you can pick the installer that matches your distro version under [`installers/`](./installers/):
 
-- **Ubuntu 22.04 (Jammy)**: [`installers/rootscope_1.1.3-1~ubuntu22.04_amd64.deb`](./installers/)
-- **Ubuntu 24.04 (Noble)**: [`installers/rootscope_1.1.3-1~ubuntu24.04_amd64.deb`](./installers/)
-- **Ubuntu 25.04 (Oracular)**: [`installers/rootscope_1.1.3-1~ubuntu25.04_amd64.deb`](./installers/)
-
-> Tip: We keep the latest builds in the `installers/` directory. Check the filenames for the exact version.
+> Tip: We keep the latest builds in the `installers/` directory. Check the filenames for the exact distro and version.
 
 ### 🧩 Supported Distros
 
-- Ubuntu 22.04+ (tested and supported)
+The following distros are fully tested:
+- Ubuntu 22.04+
+- Debian 11 and 12
 - Other Linux distributions with systemd may work, but are not officially supported yet
 
 > RootScope requires root privileges to install and run the system daemon.
@@ -98,7 +96,7 @@ RootScope is designed to install with a single command and start working immedia
 
 
 ```
-sudo apt install <pkg> --fix-missing --fix-broken
+sudo apt update && sudo apt install <pkg> --fix-missing --fix-broken
 ```
 
 This will:
