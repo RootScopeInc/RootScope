@@ -52,66 +52,92 @@ RootScope then **correlates these events across subsystems** to reconstruct a co
 - Every process is traced through its full parent/child lineage
 - All activity is stored locally in a queryable event database stored under `/opt/rootscope/rs.db`
 
-> 📦 RootScope is built entirely in user space — no `/proc` scraping, no kernel patching, no eBPF.
-
----
-
-## 🧪 Try RootScope via a RootScope Playground
-
-The RootScope Playground is a zero-setup environment designed to let you try RootScope instantly.
-
-It walks you through a fun, real-world scenario — the kind that traditional logging tools miss — and shows how RootScope helps uncover the full picture.
-
-No install, no configuration — just SSH in and start investigating.
-
-### 🔐 How to Access the Playground  
-
-Getting access is simple:  
-
-1. Send your **public SSH key** to [rootscopedev@gmail.com](mailto:rootscopedev@gmail.com)  
-2. We’ll add it to the Playground and send you the login details  
-
-That’s it — no setup, no install. You’ll land directly in the RootScope Playground environment and can start exploring right away.
+> 📦 RootScope is built entirely in user space with minimal dependencies — no `/proc` scraping, no kernel patching, no eBPF.
 
 ---
 
 ## ⚙️ Installation
 
-If you prefer a more hands on trial, you can pick the installer that matches your distro version under [`installers/`](./installers/):
+RootScope can be installed in one step using **curl** — no manual downloads required.
 
-> Tip: We keep the latest builds in the `installers/` directory. Check the filenames for the exact distro and version.
+### 🧩 Supported Distributions
 
-### 🧩 Supported Distros
+Fully tested:
+- **Ubuntu** 22.04 LTS / 24.04 / 25.04  
+- **Debian** 11 (Bullseye) / 12 (Bookworm)  
+- Other **systemd-based** distributions may work, but are not officially supported yet.
 
-The following distros are fully tested:
-- Ubuntu 22.04+
-- Debian 11 and 12
-- Other Linux distributions with systemd may work, but are not officially supported yet
+---
 
-> RootScope requires root privileges to install and run the system daemon.
+### 🚀 1. Download the package for your distro
 
-### 📦 Install the RootScope daemon
+Run the command that matches your system:
 
-RootScope is designed to install with a single command and start working immediately — no configuration required.
+```bash
+# Debian 12
+curl -L -o rootscope_1.1.5-1.debian12_amd64.deb \
+https://github.com/RootScopeInc/RootScope/releases/download/1.1.5/rootscope_1.1.5-1.debian12_amd64.deb
 
+# Debian 11
+curl -L -o rootscope_1.1.5-1.debian11_amd64.deb \
+https://github.com/RootScopeInc/RootScope/releases/download/1.1.5/rootscope_1.1.5-1.debian11_amd64.deb
+
+# Ubuntu 22
+curl -L -o rootscope_1.1.5-1.ubuntu22.04_amd64.deb \
+https://github.com/RootScopeInc/RootScope/releases/download/1.1.5/rootscope_1.1.5-1.ubuntu22.04_amd64.deb
+
+# Ubuntu 24
+curl -L -o rootscope_1.1.5-1.ubuntu24.04_amd64.deb \
+https://github.com/RootScopeInc/RootScope/releases/download/1.1.5/rootscope_1.1.5-1.ubuntu24.04_amd64.deb
+
+# Ubuntu 25
+curl -L -o rootscope_1.1.5-1.ubuntu25.04_amd64.deb \
+https://github.com/RootScopeInc/RootScope/releases/download/1.1.5/rootscope_1.1.5-1.ubuntu25.04_amd64.deb
+```
+
+> 💡 **Tip:** The latest builds are available on the [Releases Page](https://github.com/RootScopeInc/RootScope/releases).  
+> Match the `.deb` filename to your distro version.
+
+
+### 📦 2. Install the RootScope daemon
+
+Install the downloaded package:
 
 ```
-sudo apt update && sudo apt install <pkg> --fix-missing --fix-broken
+sudo apt install ./rootscope_*.deb --fix-missing --fix-broken
 ```
 
 This will:
-- Install the RootScope system daemon
-- Set up the rsctl CLI interface
+- Install the RootScope daemon
+- Set up the rsctl CLI
 - Enable and start the daemon on boot
 
-Once installed, run:
+> RootScope requires root privileges to install and run the system daemon.
+
+### 🧠 3. Verify installation
+
+Run the following to confirm that everything is set up correctly:
 
 ```bash
 rsctl -h
 ```
 
-to view all the available commands as well as their example usage
+You’ll see a list of available commands, examples, and usage help.
 
+---
+
+## 🧪 Try RootScope via a RootScope Playground
+
+If you’re not on one of the supported distros, you can try RootScope in the Playground — a zero-setup environment that lets you explore it right away.
+
+It simulates real system activity and shows how RootScope captures events that typical logging tools overlook.
+
+No installation, no setup — just SSH in and start experimenting.
+
+### 🔐 How to Access the Playground
+
+1. Send your **public SSH key** to [rootscopedev@gmail.com](mailto:rootscopedev@gmail.com)  
+2. We’ll add it to the Playground and reply with your SSH connection details
 
 ---
 
