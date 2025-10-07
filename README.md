@@ -56,6 +56,43 @@ RootScope then **correlates these events across subsystems** to reconstruct a co
 
 ---
 
+## 🖥️ Example Output
+
+The trace below shows RootScope capturing real system behavior — surfacing file, process, and mount activity that normally happens silently in the background.
+
+```bash
+ubuntu@ip-172-26-9-81:~$ rsctl query --since 5m
+Query parameters summary:
+  Time range         : set → unset
+  Display order      : latest to oldest
+
+2025-10-07 00:35:11  [#6059] [File System]
+↳ create on /tmp/systemd-private-92465aa8743f4309b7b717ab5306f88b-apt-news.service-FTJT1Q
+  by root (pid=1) via /usr/lib/systemd/systemd
+
+2025-10-07 00:35:10  [#6058] [File System]
+↳ attrib on /var/lib/apt/lists/auxfiles
+  by root (pid=179789) via /usr/bin/apt
+
+2025-10-07 00:35:10  [#6056] [File System]
+↳ modify, close-write on /tmp/#3698
+  by root (pid=179789) via /usr/bin/apt
+
+2025-10-07 00:34:51  [#6054] [File System]
+↳ modify, close-write, delete on /var/tmp/etilqs_3f98709c8586f41c
+  by ubuntu (pid=179744) via /usr/bin/rootscope/rsctl
+
+2025-10-07 00:34:51  [#6053] [File System]
+↳ create on /var/tmp/etilqs_3f98709c8586f41c
+  by ubuntu (pid=179744) via /usr/bin/rootscope/rsctl
+
+2025-10-07 00:31:57  [#6050] [Mount]
+↳ remount EXT2/3/4 → /var/log/rootscope/rootscope_user_data
+  by root (pid=179348) via /usr/bin/mount
+```
+
+Each event shows a precise timestamp, operation type, and the process responsible — even if that process has already exited.
+
 ## ⚙️ Installation
 
 RootScope can be installed in one step using **curl** — no manual downloads required.
