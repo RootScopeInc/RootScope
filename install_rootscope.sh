@@ -23,7 +23,8 @@ case "$ID-$VERSION_CLEAN" in
         ;;
 esac
 
-URL="https://github.com/RootScopeInc/RootScope/releases/download/1.1.5/$PKG"
+LATEST_TAG=$(curl -s https://api.github.com/repos/RootScopeInc/RootScope/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+URL="https://github.com/RootScopeInc/RootScope/releases/download/$LATEST_TAG/$PKG"
 
 echo "Detected: $PRETTY_NAME"
 echo -e "Downloading $PKG...\n"
