@@ -25,7 +25,7 @@ case "$ID-$VERSION_CLEAN" in
 esac
 
 LATEST_TAG=$(curl -s https://api.github.com/repos/RootScopeInc/RootScope/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-PKG="rootscope_${LATEST_TAG}-1.${PKG_DIST}_amd64.deb
+PKG="rootscope_${LATEST_TAG}-1.${PKG_DIST}_amd64.deb"
 URL="https://github.com/RootScopeInc/RootScope/releases/download/$LATEST_TAG/$PKG"
 
 echo "Detected: $PRETTY_NAME"
