@@ -13,6 +13,11 @@ RootScope is fully tested on the following distributions:
 - **Debian** 11 (Bullseye) / 12 (Bookworm)  
 - Other **systemd-based** distributions may work, but are not officially supported yet.
 
+> ⚠️ Root privileges required <br>
+> RootScope installs as a `systemd` service and monitors low-level system events, so it must be installed and run as root. <br>
+> For details on what subsystems and permissions are used under the hood, see the [**How it works**](#how-it-works) section below. <br>
+> No external network access is made during installation — all components run locally. <br>
+
 Install RootScope in one step using `curl`:
 
 ```bash
@@ -105,9 +110,10 @@ RootScope is for you if:
 - You need a greppable forensic trail to rewind the system state after the fact
 
 
-## 🔧 How It Works
+## How It Works
 
 RootScope runs as a privileged user-space daemon that passively monitors system activity by tapping into multiple kernel subsystems via official interfaces — no kernel modules or patches required.
+Because interfaces like `fanotify` and `audit` are only accessible to the superuser, RootScope must run with root privileges to receive these low-level event streams safely and reliably.
 
 RootScope captures:
 
