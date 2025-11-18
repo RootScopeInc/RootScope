@@ -21,7 +21,7 @@ RootScope is fully tested on the following distributions:
 Install RootScope in one step using `curl`:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/RootScopeInc/RootScope/refs/heads/main/install_rootscope.sh | bash
+bash <(curl -sSL https://raw.githubusercontent.com/RootScopeInc/RootScope/refs/heads/main/install_rootscope.sh)
 ```
 
 Once done, verify the CLI is available:

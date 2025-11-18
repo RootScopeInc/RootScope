@@ -42,4 +42,4 @@ else
 fi
 
 echo "Installing RootScope..."
-sudo dpkg -i ./"$PKG"
+sudo apt install ./"$PKG"
