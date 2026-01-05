@@ -14,21 +14,36 @@ fi
 
 OS_PRETTY="${PRETTY_NAME:-${NAME:-unknown} ${VERSION_ID:-unknown}}"
 
-VERSION_CLEAN="$(echo "${VERSION_ID:-}" | cut -d'.' -f1)"
+ID_LOWER="${ID:-}"
+VERSION="${VERSION_ID:-}"
+
 PKG_DIST=""
 
-case "${ID:-}-${VERSION_CLEAN}" in
-    debian-12)  PKG_DIST="debian12" ;;
-    debian-11)  PKG_DIST="debian11" ;;
-    ubuntu-22)  PKG_DIST="ubuntu22.04" ;;
-    ubuntu-24)  PKG_DIST="ubuntu24.04" ;;
-    ubuntu-25)  PKG_DIST="ubuntu25.04" ;;
-    rhel-*|rocky-*|ol-*|fedora-*)
-        die "RPM-based distro detected (${OS_PRETTY}). RPM packages not supported yet (planned: RHEL/Rocky/Oracle)."
-        ;;
-    *)
-        die "Unsupported OS: ${ID:-unknown} ${VERSION_ID:-unknown}"
-        ;;
+case "$ID_LOWER" in
+  ubuntu)
+    UB_VER="$(echo "$VERSION" | grep -oE '^[0-9]+\.[0-9]+' || true)"
+    case "$UB_VER" in
+      22.04) PKG_DIST="ubuntu22.04" ;;
+      24.04) PKG_DIST="ubuntu24.04" ;;
+      25.04) PKG_DIST="ubuntu25.04" ;;
+      25.10) PKG_DIST="ubuntu25.10" ;;
+      *)     die "Unsupported Ubuntu version: ${OS_PRETTY}" ;;
+    esac
+    ;;
+  debian)
+    # Debian VERSION_ID is typically "11" or "12"
+    case "$VERSION" in
+      11) PKG_DIST="debian11" ;;
+      12) PKG_DIST="debian12" ;;
+      *)  die "Unsupported Debian version: ${OS_PRETTY}" ;;
+    esac
+    ;;
+  rhel|rocky|ol|fedora)
+    die "RPM-based distro detected (${OS_PRETTY}). RPM packages not supported yet (planned: RHEL/Rocky/Oracle)."
+    ;;
+  *)
+    die "Unsupported OS: ${OS_PRETTY}"
+    ;;
 esac
 
 DOWNLOAD_TOOL=""
