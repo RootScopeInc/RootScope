@@ -7,4 +7,5 @@ https://docs.rootscope.io/install
 
 ---
 
-This repository exists primarily for issue tracking and reference.
+This repository exists primarily to host RootScope release artifacts.  
+Issue tracking is also handled here.
